@@ -10,15 +10,10 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :gender
       t.string :interested_in
       t.string :pronouns
-      t.string :current_location_city
-      t.float :current_location_lat
-      t.float :current_location_long
+      t.string :current_location
+      t.date :birth_date
       t.text :bio
       t.string :image_url
-      t.time :birth_time
-      t.float :birth_location_lat
-      t.float :birth_location_long
-      t.string :birth_location_city
 
       t.timestamps
     end
