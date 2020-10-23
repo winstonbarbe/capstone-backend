@@ -1,0 +1,16 @@
+{
+  id: user.id,
+  first_name: user.first_name,
+  last_name: user.last_name,
+  email: user.email,
+  sun_sign: user.sun_sign,
+  moon_sign: user.moon_sign,
+  ascending_sign: user.ascending_sign,
+  gender: user.gender,
+  interested_in: user.interested_in,
+  pronouns: user.pronouns,
+  current_location: user.current_location
+  birth_date: user.birth_date,
+  bio: user.bio,
+  image_url: user.image_url
+}
