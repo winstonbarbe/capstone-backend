@@ -1,8 +1,6 @@
 class User < ApplicationRecord
-  # has_many :matches
-  # has_many :received_matches
-  # scope :mutual_matches, -> { joins(:matches).where("matches.mutual = 1")}
-  # scope :received_matches, -> { joins(:matches).where("matches.mutual = 0")}
+  has_secure_password
+  validates :email, presence: true, uniqueness: true
 
   has_many :messages
 
