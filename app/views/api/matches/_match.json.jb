@@ -1,0 +1,6 @@
+{
+  id: match.id,
+  sender_id: match.sender_id,
+  recipient_id: match.recipient_id,
+  mutual: match.mutual
+}

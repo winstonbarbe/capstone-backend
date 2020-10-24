@@ -1,0 +1,6 @@
+{
+  id: @message.id,
+  user_id: @message.user_id,
+  match_id: @message.match_id,
+  body: @message.body,
+}

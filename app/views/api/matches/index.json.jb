@@ -1,0 +1,3 @@
+@matches.map do |match|
+  render partial: "match.json.jb", locals: { match: match}
+end

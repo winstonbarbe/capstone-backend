@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_181825) do
+ActiveRecord::Schema.define(version: 2020_10_24_033634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_181825) do
   create_table "matches", force: :cascade do |t|
     t.integer "sender_id"
     t.integer "recipient_id"
-    t.integer "mutual"
+    t.integer "mutual", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
