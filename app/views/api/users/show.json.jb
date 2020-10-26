@@ -1,1 +1,12 @@
-render partial: "user.json.jb", locals: { user: @user }
+user = render partial: "user.json.jb", locals: { user: @user }
+
+user[:received_matches] = @user.received_matches.map do |received_match|
+  render partial: "api/matches/match.json.jb", locals: { match: received_match }
+end
+
+user[:mutual_matches] = @user.mutual_matches.map do |mutual_match|
+  render partial: "api/matches/match.json.jb", locals: { match: mutual_match }
+end
+
+
+user

@@ -1,1 +1,12 @@
-render partial: "match.json.jb", locals: { match: @match }
+match = render partial: "match.json.jb", locals: { match: @match }
+
+match[:messages] = @match.messages.map do |message|
+  {
+    id: message.id,
+    match: message.match_id,
+    message: message.body,
+    sent: message.created_at.strftime("%l:%M%p %m/%e/%y")
+  }
+end
+
+match

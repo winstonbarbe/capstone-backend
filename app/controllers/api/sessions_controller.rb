@@ -14,5 +14,5 @@ class Api::SessionsController < ApplicationController
     else
       render json: {}, status: :unauthorized
     end
-  end
+  end 
 end

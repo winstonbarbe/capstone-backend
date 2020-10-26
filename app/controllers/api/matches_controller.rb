@@ -1,6 +1,8 @@
 class Api::MatchesController < ApplicationController
+
   def index
     @matches = Match.all
+    # @mutual_matches = current_user.mutual_matches 
     render "index.json.jb"
   end
 

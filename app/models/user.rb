@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
+  validates :first_name, :last_name, presence: true, length: { minimum: 2 }
   validates :email, presence: true, uniqueness: true
+  validates :bio, length: { in: 10..500 }, on: :update
+  validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :current_location, :birth_date, :image_url, length: { minimum: 2 }, on: :update
 
   has_many :messages
 
