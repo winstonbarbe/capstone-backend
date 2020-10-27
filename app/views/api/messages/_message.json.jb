@@ -1,0 +1,10 @@
+{
+  id: message.id,
+  sender: {
+    user_id: message.user_id,
+    name: "#{message.user.first_name} #{message.user.last_name}",
+    
+  },
+  body: message.body,
+  sent: message.created_at
+}

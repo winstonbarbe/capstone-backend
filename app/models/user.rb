@@ -5,10 +5,11 @@ class User < ApplicationRecord
   validates :bio, length: { in: 10..500 }, on: :update
   validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :current_location, :birth_date, :image_url, length: { minimum: 2 }, on: :update
 
-  has_many :messages
-
+  # has_many :messages, dependent: :destroy
+  
   def matches
     Match.where("sender_id = ? OR recipient_id = ?", id, id)
+
   end
 
   def mutual_matches
@@ -17,5 +18,10 @@ class User < ApplicationRecord
 
   def received_matches
     matches.where("recipient_id = ? AND mutual = ?", id, 0)
+  end
+
+  def compatible
+    compatibility = 
+  
   end
 end

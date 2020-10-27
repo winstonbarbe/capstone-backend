@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
 
-  before_action :authenticate_user, except: [:index, :create, :show]
+  before_action :authenticate_user, except: :create
   
   def index
     @users = User.all
@@ -44,11 +44,11 @@ class Api::UsersController < ApplicationController
       @user.birth_date = params[:birth_date] || @user.birth_date
       @user.bio = params[:bio] || @user.bio
       @user.image_url = params[:image_url] || @user.image_url
-      if params[:password]
+      if params[:new_password]
         if @user.authenticate(params[:old_password])
           @user.update!(
-            password: params[:password],
-            password_confirmation: params[:password_confirmation],
+            password: params[:new_password],
+            password_confirmation: params[:new_password_confirmation],
           )
         end
       end

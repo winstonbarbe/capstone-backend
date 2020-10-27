@@ -1,5 +1,15 @@
-@matches.map do |match|
-  render partial: "match.json.jb", locals: { match: match}
-end
+
+{
+  mutual_matches: @mutual_matches.map do |match|
+    @last_message = match.messages.last
+    match = render partial: "match.json.jb", locals: { match: match}
+    match[:last_message] = render partial: "api/messages/message.json.jb", locals: { message: @last_message }
+    match
+  end,
+  received_matches: @received_matches.map do |match|
+    render partial: "match.json.jb", locals: { match: match}
+  end
+}
+
 
 
