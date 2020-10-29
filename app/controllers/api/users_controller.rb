@@ -30,7 +30,7 @@ class Api::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if current_user.id == @user.id
+    if current_user == @user
       @user.first_name = params[:first_name] || @user.first_name
       @user.last_name = params[:last_name] || @user.last_name
       @user.email = params[:email] || @user.email
@@ -64,7 +64,7 @@ class Api::UsersController < ApplicationController
 
   def destroy 
     @user = User.find(params[:id])
-    if current_user.id == @user.id
+    if current_user == @user
       @user.destroy
       render json: { message: "Account destroyed" }
     else 

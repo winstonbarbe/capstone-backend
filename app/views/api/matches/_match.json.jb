@@ -3,7 +3,7 @@
   mutual: match.mutual,
   sender: {
     id: match.sender_id,
-    fist_name: match.sender.first_name,
+    first_name: match.sender.first_name,
     last_name: match.sender.last_name,
     sun_sign: match.sender.sun_sign,
     moon_sign: match.sender.moon_sign,
@@ -14,7 +14,7 @@
   },
   recipient: {
     id: match.recipient_id,
-    fist_name: match.recipient.first_name,
+    first_name: match.recipient.first_name,
     last_name: match.recipient.last_name,
     sun_sign: match.recipient.sun_sign,
     moon_sign: match.recipient.moon_sign,
