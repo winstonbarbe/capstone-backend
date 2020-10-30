@@ -1,9 +1,13 @@
 class Api::UsersController < ApplicationController
 
   before_action :authenticate_user, except: :create
+  before_action :compatibles, except: :show
   
   def index
-    @users = User.all
+    @users = compatibles.map { |compatible| compatible[0] }
+    @rankings = compatibles.map { |compatible| compatible[1] }
+  
+
     render "index.json.jb"
   end
 
@@ -24,6 +28,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
     render "show.json.jb"
   end
 
@@ -64,7 +69,7 @@ class Api::UsersController < ApplicationController
 
   def destroy 
     @user = User.find(params[:id])
-    if current_user == @user
+    if current_user.id == @user.id
       @user.destroy
       render json: { message: "Account destroyed" }
     else 

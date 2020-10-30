@@ -10,7 +10,6 @@ class User < ApplicationRecord
   
   def matches
     Match.where("sender_id = ? OR recipient_id = ?", id, id)
-
   end
 
   def mutual_matches
@@ -19,10 +18,6 @@ class User < ApplicationRecord
 
   def received_matches
     matches.where("recipient_id = ? AND mutual = ?", id, 0)
-  end
-
-  def compatible
-    User.first.id
   end
 end
 

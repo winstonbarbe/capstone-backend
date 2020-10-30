@@ -1,3 +1,11 @@
-@users.map do |user|
-  render partial: "user.json.jb", locals: { user: user }
+users = @users.map do |user|
+  ranking = @rankings.shift
+  if ranking > 6
+    ranking = "super"
+  else
+    ranking = "good"
+  end
+  render partial: "user.json.jb", locals: { user: user, ranking: ranking }
 end
+
+users
