@@ -1,1 +1,13 @@
-user = render partial: "user.json.jb", locals: { user: @user, ranking: nil }
+# if @user == current_user
+#   @ranking = nil 
+# elsif @ranking > 6 
+#   @ranking = "super"
+# else
+#   @ranking = "good"
+# end
+user_hash = render partial: "user.json.jb", locals: { user: @user}
+if @user != current_user
+  user_hash[:ranking] = current_user.ranking_generator(current_user.compatibility_hash, @user)
+end
+
+user_hash

@@ -1,13 +1,9 @@
 class Api::UsersController < ApplicationController
 
   before_action :authenticate_user, except: :create
-  before_action :compatibles, except: :show
   
   def index
-    @users = compatibles.map { |compatible| compatible[0] }
-    @rankings = compatibles.map { |compatible| compatible[1] }
-  
-
+    @users = current_user.compatibles
     render "index.json.jb"
   end
 
@@ -28,7 +24,6 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
     render "show.json.jb"
   end
 
