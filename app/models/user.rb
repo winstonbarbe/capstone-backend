@@ -87,101 +87,139 @@ class User < ApplicationRecord
 
   def compatibility_hash
     signs = zodiac
-    details = {
+    compatible_signs = {
       sun: { favorable: nil, negative: nil },
       moon: { favorable: nil, negative: nil },
       ascending: { favorable: nil, negative: nil }
     }
     signs.map do |sign|
       if sign[:name] == sun_sign
-        details[:sun][:favorable] = sign[:favorable]
-        details[:sun][:negative] = sign[:negative]
+        compatible_signs[:sun][:favorable] = sign[:favorable]
+        compatible_signs[:sun][:negative] = sign[:negative]
       end
       if sign[:name] == moon_sign
-        details[:moon][:favorable] = sign[:favorable]
-        details[:moon][:negative] = sign[:negative]
+        compatible_signs[:moon][:favorable] = sign[:favorable]
+        compatible_signs[:moon][:negative] = sign[:negative]
       end
       if sign[:name] == ascending_sign
-        details[:ascending][:favorable] = sign[:favorable]
-        details[:ascending][:negative] = sign[:negative]
+        compatible_signs[:ascending][:favorable] = sign[:favorable]
+        compatible_signs[:ascending][:negative] = sign[:negative]
       end
     end
-    details
+    compatible_signs
   end
 
-  def ranking_generator(user_details, result)
+  def ranking_generator(compatible_signs, potential)
     ranking = 0
      # Current User Sun vs User Sun
-    if user_details[:sun][:favorable].include?(result.sun_sign)
+    if compatible_signs[:sun][:favorable].include?(potential.sun_sign)
       ranking += 1
-    elsif user_details[:sun][:negative].include?(result.sun_sign)
+    elsif compatible_signs[:sun][:negative].include?(potential.sun_sign)
       ranking -=1
     end
     # Current User Sun vs User Moon
-    if user_details[:sun][:favorable].include?(result.moon_sign)
+    if compatible_signs[:sun][:favorable].include?(potential.moon_sign)
       ranking += 1
-    elsif user_details[:sun][:negative].include?(result.moon_sign)
+    elsif compatible_signs[:sun][:negative].include?(potential.moon_sign)
       ranking -= 1
     end
     # Current User Sun vs User Ascending
-    if user_details[:sun][:favorable].include?(result.ascending_sign)
+    if compatible_signs[:sun][:favorable].include?(potential.ascending_sign)
       ranking += 1
-    elsif user_details[:sun][:negative].include?(result.ascending_sign)
+    elsif compatible_signs[:sun][:negative].include?(potential.ascending_sign)
       ranking -= 1
     end
 
     # Current User Moon vs User Sun
-    if user_details[:moon][:favorable].include?(result.sun_sign)
+    if compatible_signs[:moon][:favorable].include?(potential.sun_sign)
       ranking += 1
-    elsif user_details[:moon][:negative].include?(result.sun_sign)
+    elsif compatible_signs[:moon][:negative].include?(potential.sun_sign)
       ranking -=1
     end
     # Current User Moon vs User Moon
-    if user_details[:moon][:favorable].include?(result.moon_sign)
+    if compatible_signs[:moon][:favorable].include?(potential.moon_sign)
       ranking += 1
-    elsif user_details[:moon][:negative].include?(result.moon_sign)
+    elsif compatible_signs[:moon][:negative].include?(potential.moon_sign)
       ranking -= 1
     end
     # Current User Moon vs User Ascending
-    if user_details[:moon][:favorable].include?(result.ascending_sign)
+    if compatible_signs[:moon][:favorable].include?(potential.ascending_sign)
       ranking += 1
-    elsif user_details[:moon][:negative].include?(result.ascending_sign)
+    elsif compatible_signs[:moon][:negative].include?(potential.ascending_sign)
       ranking -= 1
     end
 
     # Current User Ascending vs User Sun
-    if user_details[:ascending][:favorable].include?(result.sun_sign)
+    if compatible_signs[:ascending][:favorable].include?(potential.sun_sign)
       ranking += 1
-    elsif user_details[:ascending][:negative].include?(result.sun_sign)
+    elsif compatible_signs[:ascending][:negative].include?(potential.sun_sign)
       ranking -=1
     end
     # Current User Ascending vs User Moon
-    if user_details[:ascending][:favorable].include?(result.moon_sign)
+    if compatible_signs[:ascending][:favorable].include?(potential.moon_sign)
       ranking += 1
-    elsif user_details[:ascending][:negative].include?(result.moon_sign)
+    elsif compatible_signs[:ascending][:negative].include?(potential.moon_sign)
       ranking -= 1
     end
     # Current User Ascending vs User Ascending
-    if user_details[:ascending][:favorable].include?(result.ascending_sign)
+    if compatible_signs[:ascending][:favorable].include?(potential.ascending_sign)
       ranking += 1
-    elsif user_details[:ascending][:negative].include?(result.ascending_sign)
+    elsif compatible_signs[:ascending][:negative].include?(potential.ascending_sign)
       ranking -= 1
     end
     ranking
   end
 
+  def not_matched(potential)
+    potential.matches.each do |match|
+      if match.sender_id == id || match.recipient_id == id
+        return false
+      end
+    end
+  end
+
+  def potentials()
+    pool = []
+    # Current User is Female
+    if gender == "Female" 
+      if interested_in == "Men"
+        pool = User.where("gender != ? AND interested_in != ?", "Female", "Men")
+      elsif interested_in == "Women"
+        pool = User.where("gender != ? AND interested_in != ?", "Female", "Women")
+      end
+    # Current User is Male
+    elsif gender == "Male" 
+      if interested_in == "Women"
+        pool = User.where("gender != ? AND interested_in != ?", "Male", "Women")
+      elsif interested_in == "Men"
+        pool = User.where("gender != ? AND interested_in != ?", "Male", "Men")
+      end
+    # Current User is non bianary 
+    else
+      if interested_in == "Men"
+        pool = User.where("gender != ?", "Female")
+      elsif interested_in == "Women"
+        pool = User.where("gender != ?", "Male")
+      else
+        pool = User.all
+      end
+    end 
+  end
+
   def compatibles
     compatible_users = []
-    User.all.map do |potential|
-      ranking = ranking_generator(compatibility_hash(), potential)
-      #git add Compatible Array
-      if ranking > 3 && potential.id != id
-        # potential[:ranking] = ranking
-        compatible_users << { user: potential, ranking: ranking }
+    # Potentials method called to find the pool of peopple matchint the current users orientaion
+    potentials.map do |potential|
+      # A method for showing onyl potential matches that are not yet created
+      if not_matched(potential)
+        ranking = ranking_generator(compatibility_hash(), potential)
+        #Compatible Array
+        if ranking >= 0 && potential.id != id
+          compatible_users << { user: potential, ranking: ranking }
+        end
       end
     end
     compatible_users.sort_by! { |potential | potential[:ranking] }.reverse
   end
-
 end
 
