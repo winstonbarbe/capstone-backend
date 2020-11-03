@@ -9,6 +9,8 @@ class Api::MessagesController < ApplicationController
       body: params[:body]
     )
     @message.save
+    @match = @message.match
+    # Should I render the show of the match that the message belongs to?
     render "show.json.jb", status: 201
   end
 end

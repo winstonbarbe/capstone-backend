@@ -6,7 +6,6 @@ class User < ApplicationRecord
   validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :current_location, :birth_date, :image_url, length: { minimum: 2 }, on: :update
 
   has_many :messages, dependent: :destroy
-  # has_many :matches, dependent: :destroy
   
   def matches
     Match.where("sender_id = ? OR recipient_id = ?", id, id)
@@ -178,7 +177,7 @@ class User < ApplicationRecord
     end
   end
 
-  def potentials()
+  def potentials
     pool = []
     # Current User is Female
     if gender == "Female" 
@@ -204,12 +203,13 @@ class User < ApplicationRecord
         pool = User.all
       end
     end 
+    pool
   end
 
   def compatibles
     compatible_users = []
     # Potentials method called to find the pool of peopple matchint the current users orientaion
-    potentials.map do |potential|
+    potentials.each do |potential|
       # A method for showing onyl potential matches that are not yet created
       if not_matched(potential)
         ranking = ranking_generator(compatibility_hash(), potential)
@@ -222,4 +222,3 @@ class User < ApplicationRecord
     compatible_users.sort_by! { |potential | potential[:ranking] }.reverse
   end
 end
-
