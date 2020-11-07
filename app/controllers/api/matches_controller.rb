@@ -14,6 +14,7 @@ class Api::MatchesController < ApplicationController
     @match = Match.new(
       sender_id: current_user.id,
       recipient_id: params[:recipient_id],
+      mutual: params[:mutual]
     )
     if @match.save
       render "show.json.jb", status: 201
