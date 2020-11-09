@@ -1,6 +1,7 @@
 {
   id: match.id,
   mutual: match.mutual,
+  super: match.super,
   sender: {
     id: match.sender_id,
     first_name: match.sender.first_name,

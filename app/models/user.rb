@@ -214,7 +214,7 @@ class User < ApplicationRecord
       if not_matched(potential)
         ranking = ranking_generator(compatibility_hash(), potential)
         #Compatible Array
-        if ranking >= 0 && potential.id != id
+        if ranking > 0 && potential.id != id
           compatible_users << { user: potential, ranking: ranking }
         end
       end
