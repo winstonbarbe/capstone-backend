@@ -1,4 +1,3 @@
-my_location = Geocoder.coordinates(current_user[:current_location])
 users = @users.map do |user|
   # ranking = @rankings.shift
   # if ranking > 6
@@ -14,7 +13,9 @@ users = @users.map do |user|
   # result = Geocoder.search(current_user[:current_location])[0].data["address"]["city"]
   result = Geocoder.coordinates(user[:user][:current_location])
   # result << Geocoder.search("Atlanta, GA")[0].data["lon"]
-  user_hash[:distance] = Geocoder::Calculations.distance_between(my_location, result)
+  # user_hash[:distance] = Geocoder::Calculations.distance_between(my_location, result)
+  user_hash[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:user][:current_location_lat], user[:user][:current_location_lon]])
+  # user_hash[:distance] = user[:user][:current_location_lon]
   user_hash
 end
 
