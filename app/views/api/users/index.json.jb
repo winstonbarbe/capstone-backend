@@ -1,21 +1,8 @@
 users = @users.map do |user|
-  # ranking = @rankings.shift
-  # if ranking > 6
-  #   ranking = "super"
-  # else
-  #   ranking = "good"
-  # end
-  # current_user_location = Geocoder.search(current_user[:current_location])[0].data
-  # lat = current_user_location["lat"]
-  # lon = current_user_location["lon"]
   user_hash = render partial: "user.json.jb", locals: { user: user[:user] }
   user_hash[:ranking] = user[:ranking]
-  # result = Geocoder.search(current_user[:current_location])[0].data["address"]["city"]
   result = Geocoder.coordinates(user[:user][:current_location])
-  # result << Geocoder.search("Atlanta, GA")[0].data["lon"]
-  # user_hash[:distance] = Geocoder::Calculations.distance_between(my_location, result)
-  user_hash[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:user][:current_location_lat], user[:user][:current_location_lon]])
-  # user_hash[:distance] = user[:user][:current_location_lon]
+  user_hash[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:user][:current_location_lat], user[:user][:current_location_lon]]).round
   user_hash
 end
 
