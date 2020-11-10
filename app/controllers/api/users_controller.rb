@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-
+    coordinates = Geocoder.search(params[:current_location])
     if current_user == @user
       @user.first_name = params[:first_name] || @user.first_name
       @user.last_name = params[:last_name] || @user.last_name
@@ -41,6 +41,8 @@ class Api::UsersController < ApplicationController
       @user.interested_in = params[:interested_in] || @user.interested_in
       @user.pronouns = params[:pronouns] || @user.pronouns
       @user.current_location = params[:current_location] || @user.current_location
+      @user.current_location_lat = params[:coordinates][0] || @user.current_location_lat
+      @user.current_location_lon = params[:coordinates][1] || @user.current_location_lon
       @user.birth_date = params[:birth_date] || @user.birth_date
       @user.bio = params[:bio] || @user.bio
       @user.image_url = params[:image_url] || @user.image_url

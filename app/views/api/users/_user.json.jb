@@ -9,7 +9,7 @@
   gender: user.gender,
   interested_in: user.interested_in,
   pronouns: user.pronouns,
-  current_location: current_user.current_location.distance_from(user.current_location),
+  current_location: user.current_location,
   birth_date: user.birth_date,
   bio: user.bio,
   image_url: user.image_url

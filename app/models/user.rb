@@ -8,6 +8,10 @@ class User < ApplicationRecord
   validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :current_location, :birth_date, :image_url, length: { minimum: 2 }, on: :update
 
   has_many :messages, dependent: :destroy
+
+  def distance_from
+    
+  end
   
   def matches
     Match.where("sender_id = ? OR recipient_id = ?", id, id)
