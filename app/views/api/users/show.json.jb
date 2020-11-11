@@ -1,14 +1,11 @@
-# if @user == current_user
-#   @ranking = nil 
-# elsif @ranking > 6 
-#   @ranking = "super"
-# else
-#   @ranking = "good"
-# end
 user = render partial: "user.json.jb", locals: { user: @user}
 if @user != current_user
   user[:ranking] = current_user.ranking_generator(current_user.compatibility_hash, @user)
   user[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ @user[:current_location_lat], @user[:current_location_lon]]).round
+else
+  user[:last_name] = @user.last_name
+  user[:email] = @user.email
+  user[:current_location] = @user.current_location
 end
 
 user
