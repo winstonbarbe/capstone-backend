@@ -1,21 +1,39 @@
-
 {
   mutual_matches: @mutual_matches.map do |match|
-    # if match.messages.last 
-    #   @last_message = match.messages.last
-    # else 
-    #   @last_message = nil
-    # end
-    render partial: "match.json.jb", locals: { match: match}
+    mutual_match = render partial: "match.json.jb", locals: { match: match}
+    if match.sender != current_user
+      mutual_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.sender_id)}
+    else
+      mutual_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.recipient_id)}
+    end
+    mutual_match
+  end,
+  received_matches: @received_matches.map do |match|
+    received_match = render partial: "match.json.jb", locals: { match: match}
+    received_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.sender_id)}
+    received_match
+  end
+}
+
+
+
+# {
+#   mutual_matches: @mutual_matches.map do |match|
+#     # if match.messages.last 
+#     #   @last_message = match.messages.last
+#     # else 
+#     #   @last_message = nil
+#     # end
+#     render partial: "match.json.jb", locals: { match: match}
     
     
 
-    # match[:last_message] = render partial: "api/messages/message.json.jb", locals: { message: @last_message }
-  end,
-  received_matches: @received_matches.map do |match|
-    render partial: "match.json.jb", locals: { match: match}
-  end
-}
+#     # match[:last_message] = render partial: "api/messages/message.json.jb", locals: { message: @last_message }
+#   end,
+#   received_matches: @received_matches.map do |match|
+#     render partial: "match.json.jb", locals: { match: match}
+#   end
+# }
 
 
 
