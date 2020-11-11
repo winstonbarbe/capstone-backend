@@ -1,5 +1,11 @@
 match = render partial: "match.json.jb", locals: { match: @match }
 
+if @match.sender != current_user
+  match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(@match.sender_id)}
+else
+  match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(@match.recipient_id)}
+end
+
 match[:messages] = @match.messages.map do |message|
   render partial: "api/messages/message.json.jb", locals: { message: message }
 end
