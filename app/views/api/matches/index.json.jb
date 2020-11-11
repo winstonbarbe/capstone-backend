@@ -1,12 +1,14 @@
 {
   mutual_matches: @mutual_matches.map do |match|
     mutual_match = render partial: "match.json.jb", locals: { match: match}
-
     if match.sender != current_user
-      mutual_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.sender_id)}
+      matcher = User.find(match.sender_id)
     else
-      mutual_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.recipient_id)}
+      matcher = User.find(match.recipient_id)
     end
+    mutual_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: matcher }
+
+    mutual_match[:matcher][:distance] =  Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ matcher[:current_location_lat], matcher[:current_location_lon]]).round
 
     if match.messages.last 
       mutual_match[:last_message] = render partial: "api/messages/message.json.jb", locals: { message: match.messages.last }
@@ -17,8 +19,10 @@
     mutual_match
   end,
   received_matches: @received_matches.map do |match|
+    matcher = User.find(match.sender_id)
     received_match = render partial: "match.json.jb", locals: { match: match}
-    received_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(match.sender_id)}
+    received_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: matcher}
+    received_match[:matcher][:distance] =  Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ matcher[:current_location_lat], matcher[:current_location_lon]]).round
     received_match
   end
 }
