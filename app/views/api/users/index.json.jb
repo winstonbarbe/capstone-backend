@@ -1,7 +1,6 @@
 users = @users.map do |user|
   user_hash = render partial: "user.json.jb", locals: { user: user[:user] }
   user_hash[:ranking] = user[:ranking]
-  result = Geocoder.coordinates(user[:user][:current_location])
   user_hash[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:user][:current_location_lat], user[:user][:current_location_lon]]).round
   user_hash
 end

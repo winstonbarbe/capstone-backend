@@ -1,10 +1,12 @@
 match = render partial: "match.json.jb", locals: { match: @match }
 
 if @match.sender != current_user
-  match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(@match.sender_id)}
+  user = User.find(@match.sender_id)
 else
-  match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: User.find(@match.recipient_id)}
+  user = User.find(@match.recipient_id)
 end
+match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: user }
+match[:matcher][:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:current_location_lat], user[:current_location_lon]]).round
 
 match[:messages] = @match.messages.map do |message|
   render partial: "api/messages/message.json.jb", locals: { message: message }

@@ -5,9 +5,10 @@
 # else
 #   @ranking = "good"
 # end
-user_hash = render partial: "user.json.jb", locals: { user: @user}
+user = render partial: "user.json.jb", locals: { user: @user}
 if @user != current_user
-  user_hash[:ranking] = current_user.ranking_generator(current_user.compatibility_hash, @user)
+  user[:ranking] = current_user.ranking_generator(current_user.compatibility_hash, @user)
+  user[:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ @user[:current_location_lat], @user[:current_location_lon]]).round
 end
 
-user_hash
+user

@@ -3,39 +3,3 @@
   mutual: match.mutual,
   super: match.super,
 }
-
-# {
-#   id: match.id,
-#   mutual: match.mutual,
-#   super: match.super,
-#   sender: {
-#     id: match.sender_id,
-#     first_name: match.sender.first_name,
-#     last_name: match.sender.last_name,
-#     sun_sign: match.sender.sun_sign,
-#     moon_sign: match.sender.moon_sign,
-#     pronouns: match.sender.pronouns,
-#     interested_in: match.sender.interested_in,
-#     gender: match.sender.gender,
-#     ascending_sign: match.sender.ascending_sign,
-#     birth_date: match.sender.birth_date,
-#     current_location: match.sender.current_location,
-#     image_url: match.sender.image_url,
-#     bio: match.sender.bio,
-#   },
-#   recipient: {
-#     id: match.recipient_id,
-#     first_name: match.recipient.first_name,
-#     last_name: match.recipient.last_name,
-#     sun_sign: match.recipient.sun_sign,
-#     moon_sign: match.recipient.moon_sign,
-#     ascending_sign: match.recipient.ascending_sign,
-#     pronouns: match.recipient.pronouns,
-#     interested_in: match.recipient.interested_in,
-#     gender: match.recipient.gender,
-#     birth_date: match.recipient.birth_date,
-#     current_location: match.recipient.current_location,
-#     image_url: match.recipient.image_url,
-#     bio: match.recipient.bio
-#   }
-# }
