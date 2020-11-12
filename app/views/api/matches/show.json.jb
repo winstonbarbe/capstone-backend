@@ -6,7 +6,7 @@ else
   user = User.find(@match.recipient_id)
 end
 match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: user }
-match[:matcher][:distance] = Geocoder::Calculations.distance_between([current_user.current_location_lat, current_user.current_location_lon], [ user[:current_location_lat], user[:current_location_lon]]).round
+match[:matcher][:distance] = current_user.distance_to(user).round(1)
 
 match[:messages] = @match.messages.map do |message|
   render partial: "api/messages/message.json.jb", locals: { message: message }
