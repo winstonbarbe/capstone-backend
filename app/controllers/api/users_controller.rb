@@ -31,6 +31,8 @@ class Api::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     coordinates = Geocoder.search(params[:current_location]).first.coordinates
+    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
 
     if current_user.id == @user.id
       @user.first_name = params[:first_name] || @user.first_name
@@ -47,7 +49,7 @@ class Api::UsersController < ApplicationController
       @user.longitude = coordinates[1]
       @user.birth_date = Date.new(params[:year].to_i , params[:month].to_i , params[:day].to_i) || @user.birth_date
       @user.bio = params[:bio] || @user.bio
-      @user.image_url = params[:image_url] || @user.image_url
+      @user.image_url = cloudinary_url || @user.image_url
       if params[:new_password]
         if @user.authenticate(params[:old_password])
           @user.update!(
