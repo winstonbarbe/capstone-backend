@@ -1,9 +1,6 @@
 {
   id: message.id,
-  sender: {
-    id: message.user_id,
-    first_name: message.user.first_name
-  },
+  first_name: message.user.first_name,
   body: message.body,
-  sent: message.created_at
+  created_at: message.created_at
 }

@@ -8,9 +8,17 @@ class Api::MessagesController < ApplicationController
       match_id: params[:match_id],
       body: params[:body]
     )
-    @message.save
-    @match = @message.match
-    # Should I render the show of the match that the message belongs to?
-    render "show.json.jb", status: 201
+    if @message.save
+      ActionCable.server.broadcast "messages_channel", {
+        id: @message.id,
+        match_id: @message.match_id,
+        first_name: @message.user.first_name,
+        body: @message.body,
+        created_at: @message.created_at
+      }
+      render "show.json.jb", status: 201
+    else 
+      render json: {message: @message.errors.full_messages}, status: 422
+    end
   end
 end
