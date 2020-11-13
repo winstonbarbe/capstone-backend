@@ -1,6 +1,6 @@
 {
   id: user.id,
-  first_name: user.first_name,
+  name: user.name,
   sun_sign: user.sun_sign,
   moon_sign: user.moon_sign,
   ascending_sign: user.ascending_sign,

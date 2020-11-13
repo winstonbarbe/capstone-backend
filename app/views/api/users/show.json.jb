@@ -3,7 +3,6 @@ if @user != current_user
   user[:ranking] = current_user.ranking_generator(current_user.compatibility_hash, @user)
   user[:distance] = current_user.distance_to(@user).round(1)
 else
-  user[:last_name] = @user.last_name
   user[:email] = @user.email
   user[:current_location] = @user.current_location
 end
