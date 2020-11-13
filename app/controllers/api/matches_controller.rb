@@ -3,8 +3,8 @@ class Api::MatchesController < ApplicationController
   before_action :authenticate_user
 
   def index
-    @received_matches = current_user.received_matches
-    @mutual_matches = current_user.mutual_matches
+    @received_matches = current_user.received_matches.sort_by { |match| match.created_at }.reverse
+    @mutual_matches = current_user.mutual_matches.sort_by { |match| match.created_at }.reverse
     # @mutual_matches = current_user.mutual_matches
 
     render "index.json.jb"
