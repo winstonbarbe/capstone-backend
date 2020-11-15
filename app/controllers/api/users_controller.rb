@@ -28,11 +28,22 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    birth_date = params[:birth_date].split("-")
+    year = birth_date[0].to_i
+    month = birth_date[1].to_i
+    day = birth_date[2].to_i
 
-    coordinates = Geocoder.search(params[:current_location]).first.coordinates
-    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
-    cloudinary_url = response["secure_url"]
-
+    if params[:current_location]
+      coordinates = Geocoder.search(params[:current_location]).first.coordinates
+    else
+      coordinates = []
+      coordinates << @user.latitude
+      coordinates << @user.longitude
+    end
+    if params[:image]
+      response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
+      cloudinary_url = response["secure_url"]
+    end
     if current_user.id == @user.id
       @user.name = params[:name] || @user.name
       @user.email = params[:email] || @user.email
@@ -43,19 +54,19 @@ class Api::UsersController < ApplicationController
       @user.interested_in = params[:interested_in] || @user.interested_in
       @user.pronouns = params[:pronouns] || @user.pronouns
       @user.current_location = params[:current_location] || @user.current_location
-      @user.latitude = coordinates[0]
-      @user.longitude = coordinates[1]
-      @user.birth_date = Date.new(params[:year].to_i , params[:month].to_i , params[:day].to_i) || @user.birth_date
+      @user.latitude = coordinates[0] || @user.latitude
+      @user.longitude = coordinates[1] || @user.longitude
+      @user.birth_date = Date.new(year, month, day)  || @user.birth_date
       @user.bio = params[:bio] || @user.bio
       @user.image_url = cloudinary_url || @user.image_url
-      if params[:new_password]
-        if @user.authenticate(params[:old_password])
-          @user.update!(
-            password: params[:new_password],
-            password_confirmation: params[:new_password_confirmation],
-          )
-        end
-      end
+        # if params[:new_password]
+        #   if @user.authenticate(params[:old_password])
+        #     @user.update!(
+        #       password: params[:new_password],
+        #       password_confirmation: params[:new_password_confirmation],
+        #     )
+        #   end
+        # end
       if @user.save
         render "show.json.jb", status: 201
       else 
