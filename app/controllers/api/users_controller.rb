@@ -35,15 +35,19 @@ class Api::UsersController < ApplicationController
 
     if params[:current_location]
       coordinates = Geocoder.search(params[:current_location]).first.coordinates
-    else
+    else 
       coordinates = []
       coordinates << @user.latitude
       coordinates << @user.longitude
     end
+
     if params[:image]
       response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
       cloudinary_url = response["secure_url"]
+    else 
+      cloudinary_url = @user.image_url
     end
+
     if current_user.id == @user.id
       @user.name = params[:name] || @user.name
       @user.email = params[:email] || @user.email
@@ -59,14 +63,14 @@ class Api::UsersController < ApplicationController
       @user.birth_date = Date.new(year, month, day)  || @user.birth_date
       @user.bio = params[:bio] || @user.bio
       @user.image_url = cloudinary_url || @user.image_url
-        # if params[:new_password]
-        #   if @user.authenticate(params[:old_password])
-        #     @user.update!(
-        #       password: params[:new_password],
-        #       password_confirmation: params[:new_password_confirmation],
-        #     )
-        #   end
-        # end
+      if params[:new_password]
+        if @user.authenticate(params[:old_password])
+          @user.update!(
+            password: params[:new_password],
+            password_confirmation: params[:new_password_confirmation],
+          )
+        end
+      end
       if @user.save
         render "show.json.jb", status: 201
       else 

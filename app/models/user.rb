@@ -3,7 +3,7 @@ class User < ApplicationRecord
   geocoded_by :current_location
   after_validation :geocode
 
-  validates name, presence: true, length: { minimum: 2 }
+  validates :name, presence: true, length: { minimum: 2 }
   validates :email, presence: true, uniqueness: true
   validates :bio, length: { in: 10..500 }, on: :update
   validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :birth_date, :image_url, length: { minimum: 2 }, on: :update
@@ -210,6 +210,26 @@ class User < ApplicationRecord
     pool
   end
 
+  def hidden_from(potential)
+    if gender == "Male"
+      if potential.seen_by != 1 
+        return true 
+      else 
+        return false
+      end
+    end
+    if gender == "Female"
+      if potential.seen_by != -1 
+        return true 
+      else 
+        return false
+      end
+    end
+    if gender == "NB"
+      return true
+    end
+  end
+
   def compatibles
     compatible_users = []
     # Potentials method called to find the pool of peopple matchint the current users orientaion
@@ -218,7 +238,8 @@ class User < ApplicationRecord
       if not_matched(potential)
         ranking = ranking_generator(compatibility_hash(), potential)
         #Compatible Array
-        if ranking > 0 && potential.id != id
+        if ranking > 0 && potential.id != id && hidden_from(potential)
+
           compatible_users << { user: potential, ranking: ranking }
         end
       end
