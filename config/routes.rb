@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # get "/photos" => "photos#index"
 
   namespace :api do
-    resources :users, :matches, :messages
+    resources :users, :matches, :messages, :images
     # get "/users" => "users#index"
     # post "/users" => "users#create"
     # get "/users/:id" => "users#show"

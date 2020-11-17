@@ -8,6 +8,5 @@
   interested_in: user.interested_in,
   pronouns: user.pronouns,
   birth_date: user.birth_date,
-  bio: user.bio,
-  image_url: user.image_url
+  bio: user.bio
 }

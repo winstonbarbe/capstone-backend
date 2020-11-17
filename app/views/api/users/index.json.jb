@@ -3,7 +3,11 @@ users = @users.map do |user|
   
   user_hash[:ranking] = user[:ranking]
   user_hash[:distance] = current_user.distance_to(user[:user]).round(1)
-  
+
+  if user[:user].images.first
+    user_hash[:image_url] =  user[:user].images.first.path
+  end
+
   user_hash
 end
 

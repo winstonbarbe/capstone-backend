@@ -15,6 +15,10 @@
     else 
       mutual_match[:last_message] = nil
     end
+
+    if matcher.images.first
+      mutual_match[:matcher][:image_url] = matcher.images.first.path
+    end
     
     mutual_match
   end,
@@ -23,6 +27,9 @@
     received_match = render partial: "match.json.jb", locals: { match: match}
     received_match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: matcher}
     received_match[:matcher][:distance] =  current_user.distance_to(matcher).round(1)
+    if matcher.images.first
+      received_match[:matcher][:image_url] = matcher.images.first.path
+    end
     received_match
   end
 }

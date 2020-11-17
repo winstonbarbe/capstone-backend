@@ -1,0 +1,4 @@
+{
+  id: image.id,
+  path: image.path
+}

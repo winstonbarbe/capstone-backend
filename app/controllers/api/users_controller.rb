@@ -48,6 +48,7 @@ class Api::UsersController < ApplicationController
       cloudinary_url = @user.image_url
     end
 
+
     if current_user.id == @user.id
       @user.name = params[:name] || @user.name
       @user.email = params[:email] || @user.email

@@ -5,6 +5,12 @@ if @user != current_user
 else
   user[:email] = @user.email
   user[:current_location] = @user.current_location
+  user[:seen_by] = @user.seen_by
+end
+if @user.images.first
+  user[:image_urls] = @user.images.map do |image|
+    image.path
+  end
 end
 
 user

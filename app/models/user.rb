@@ -10,6 +10,8 @@ class User < ApplicationRecord
   validates :current_location, length: { minimum: 6}, on: :update
 
   has_many :messages, dependent: :destroy
+  has_many :images, dependent: :destroy
+
   
   def matches
     Match.where("sender_id = ? OR recipient_id = ?", id, id)

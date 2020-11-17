@@ -8,8 +8,20 @@ end
 match[:matcher] = render partial: "api/users/user.json.jb", locals: { user: user }
 match[:matcher][:distance] = current_user.distance_to(user).round(1)
 
+
+
 match[:messages] = @match.messages.map do |message|
   render partial: "api/messages/message.json.jb", locals: { message: message }
+end
+
+if user.images.first
+
+  match[:matcher][:image_urls] = user.images.map do |image|
+    image.path
+  end
+  # user.images.map do |image|
+  #   match[:matcher][:image_urls] = image.path
+  # end
 end
 
 match
