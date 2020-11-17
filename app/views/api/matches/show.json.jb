@@ -10,7 +10,7 @@ match[:matcher][:distance] = current_user.distance_to(user).round(1)
 
 
 
-match[:messages] = @match.messages.map do |message|
+match[:messages] = @match.messages.reverse.map do |message|
   render partial: "api/messages/message.json.jb", locals: { message: message }
 end
 
