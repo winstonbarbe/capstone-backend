@@ -8,8 +8,8 @@ else
   user[:seen_by] = @user.seen_by
 end
 if @user.images.first
-  user[:image_urls] = @user.images.map do |image|
-    image.path
+  user[:images] = @user.images.map do |image|
+    { id: image.id, url: image.path }
   end
 end
 

@@ -1,4 +1,4 @@
 {
   id: image.id,
-  path: image.path
+  url: image.path
 }

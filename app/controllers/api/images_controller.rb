@@ -7,12 +7,15 @@ class Api::ImagesController < ApplicationController
   end
 
   def create
+    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
+
     @image = Image.new(
       user_id: current_user.id,
-      url: params[:url]
+      path: cloudinary_url
     )
     if @image.save
-      render json: @image, status: 201
+      render "show.json.jb", status: 201
     else
       render json: {errors: @image.errors.full_messages}, status: 401
     end
@@ -21,5 +24,15 @@ class Api::ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
     render "show.json.jb"
+  end
+
+  def destroy
+    @image = Image.find(params[:id])
+    if current_user.id == @image.user_id
+      @image.destroy
+      render json: { message: "Account destroyed" }
+    else 
+      render json: { status: "Forbidden" }, status: 403
+    end
   end
 end

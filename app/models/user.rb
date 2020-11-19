@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2 }
   validates :email, presence: true, uniqueness: true
   validates :bio, length: { in: 10..500 }, on: :update
-  validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :birth_date, :image_url, length: { minimum: 2 }, on: :update
+  validates :sun_sign, :moon_sign, :ascending_sign, :gender, :interested_in, :pronouns, :birth_date, length: { minimum: 2 }, on: :update
   validates :current_location, length: { minimum: 6}, on: :update
 
   has_many :messages, dependent: :destroy

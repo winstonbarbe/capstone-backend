@@ -41,14 +41,6 @@ class Api::UsersController < ApplicationController
       coordinates << @user.longitude
     end
 
-    if params[:image]
-      response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
-      cloudinary_url = response["secure_url"]
-    else 
-      cloudinary_url = @user.image_url
-    end
-
-
     if current_user.id == @user.id
       @user.name = params[:name] || @user.name
       @user.email = params[:email] || @user.email
@@ -57,13 +49,13 @@ class Api::UsersController < ApplicationController
       @user.ascending_sign = params[:ascending_sign] || @user.ascending_sign
       @user.gender = params[:gender] || @user.gender
       @user.interested_in = params[:interested_in] || @user.interested_in
+      @user.seen_by = params[:seen_by] || @user.seen_by
       @user.pronouns = params[:pronouns] || @user.pronouns
       @user.current_location = params[:current_location] || @user.current_location
       @user.latitude = coordinates[0] || @user.latitude
       @user.longitude = coordinates[1] || @user.longitude
       @user.birth_date = Date.new(year, month, day)  || @user.birth_date
       @user.bio = params[:bio] || @user.bio
-      @user.image_url = cloudinary_url || @user.image_url
       if params[:new_password]
         if @user.authenticate(params[:old_password])
           @user.update!(
