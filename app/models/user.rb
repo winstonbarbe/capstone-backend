@@ -50,7 +50,7 @@ class User < ApplicationRecord
       { 
         name: "Leo", 
         favorable: ["Taurus", "Gemini", "Leo", "Libra", "Sagittarius", "Aquarius"], 
-        negative: ["Taurus", "Scorpio", "Pisces"] 
+        negative: ["Scorpio", "Pisces"] 
       },
       { 
         name: "Virgo", 
@@ -76,9 +76,9 @@ class User < ApplicationRecord
         name: "Capricorn", 
         favorable: ["Taurus", "Cancer", "Virgo", "Scorpio", "Capricorn", "Pisces"], 
         negative: ["Aries", "Gemini", "Leo", "Libra", "Sagittarius", "Aquarius"] 
-        }, 
-        { name: 
-          "Aquarius", 
+      }, 
+      { 
+        name: "Aquarius", 
         favorable: ["Aries", "Gemini", "Leo", "Libra", "Sagittarius", "Aquarius"], 
         negative: ["Taurus", "Scorpio"] 
       },
@@ -240,8 +240,7 @@ class User < ApplicationRecord
       if not_matched(potential)
         ranking = ranking_generator(compatibility_hash(), potential)
         #Compatible Array
-        if ranking > 0 && potential.id != id && hidden_from(potential)
-
+        if ranking > 0 && potential.id != id && hidden_from(potential) && potential.id < 180 && potential.id > 130
           compatible_users << { user: potential, ranking: ranking }
         end
       end

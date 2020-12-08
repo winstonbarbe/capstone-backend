@@ -74,6 +74,9 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.9.0)
+    faker (2.14.0)
+      i18n (>= 1.6, < 2)
+    ffaker (2.17.0)
     ffi (1.13.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -227,6 +230,8 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   cloudinary
+  faker
+  ffaker
   geocoder
   http
   jb
