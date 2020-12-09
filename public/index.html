@@ -1,40 +1,87 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="description" content="Bootstrap 4 Theme"><meta name="author" content="kingstudio.ro"><link rel="icon" href="/images/favicon.png"><title>Capstone</title><link href="/css/bootstrap.min.css" rel="stylesheet"><link href="/css/style.css" rel="stylesheet"><link href="/css/animate.css" rel="stylesheet"><link href="/css/owl.carousel.min.css" rel="stylesheet"><link href="/css/magnific-popup.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700" rel="stylesheet"><link href="/css/linear-icons.css" rel="stylesheet"><link href="/css/fontawesome-all.min.css" rel="stylesheet" type="text/css"><link href="/css/app.0746910a.css" rel="preload" as="style"><link href="/js/app.fa81b4ca.js" rel="preload" as="script"><link href="/js/chunk-vendors.45904dfa.js" rel="preload" as="script"><link href="/css/app.0746910a.css" rel="stylesheet"></head><body><div id="preloader"><div class="preloader"><span></span> <span></span></div></div><div id="app"></div><script src="/js/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/preloader.js"></script><script src="/js/jquery.shuffle.min.js"></script><script src="/js/portfolio.js"></script><script>$(document).ready(function() {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <meta name="description" content="Bootstrap 4 Theme" />
+    <meta name="author" content="kingstudio.ro" />
+    <link rel="icon" href="/images/favicon.png" />
+    <title>MIDHEAVEN</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/animate.css" rel="stylesheet" />
+    <link href="/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/css/magnific-popup.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700"
+      rel="stylesheet"
+    />
+    <link href="/css/linear-icons.css" rel="stylesheet" />
+    <link
+      href="/css/fontawesome-all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="/css/app.0746910a.css" rel="preload" as="style" />
+    <link href="/js/app.fa81b4ca.js" rel="preload" as="script" />
+    <link href="/js/chunk-vendors.45904dfa.js" rel="preload" as="script" />
+    <link href="/css/app.0746910a.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="preloader"><span></span> <span></span></div>
+    </div>
+    <div id="app"></div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/preloader.js"></script>
+    <script src="/js/jquery.shuffle.min.js"></script>
+    <script src="/js/portfolio.js"></script>
+    <script>
+      $(document).ready(function () {
         if (Modernizr.touch) {
           // show the close overlay button
           $(".close-overlay").removeClass("hidden");
           // handle the adding of hover class when clicked
-          $(".img").click(function(e) {
+          $(".img").click(function (e) {
             if (!$(this).hasClass("hover")) {
               $(this).addClass("hover");
             }
           });
           // handle the closing of the overlay
-          $(".close-overlay").click(function(e) {
+          $(".close-overlay").click(function (e) {
             e.preventDefault();
             e.stopPropagation();
-            if (
-              $(this)
-                .closest(".img")
-                .hasClass("hover")
-            ) {
-              $(this)
-                .closest(".img")
-                .removeClass("hover");
+            if ($(this).closest(".img").hasClass("hover")) {
+              $(this).closest(".img").removeClass("hover");
             }
           });
         } else {
           // handle the mouseenter functionality
           $(".img")
-            .mouseenter(function() {
+            .mouseenter(function () {
               $(this).addClass("hover");
             })
             // handle the mouseleave functionality
-            .mouseleave(function() {
+            .mouseleave(function () {
               $(this).removeClass("hover");
             });
         }
-      });</script><script src="/js/jquery.magnific-popup.min.js"></script><script>// This will create a single gallery from all elements that have class "lightbox"
-      $(".lightbox").each(function() {
+      });
+    </script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script>
+      // This will create a single gallery from all elements that have class "lightbox"
+      $(".lightbox").each(function () {
         $(this).magnificPopup({
           delegate: "a.image-lightbox", // the selector for gallery item
           type: "image",
@@ -44,7 +91,11 @@
             enabled: true,
           },
         });
-      });</script><script src="/js/owl.carousel.min.js"></script><script>$("#project-slider").owlCarousel({
+      });
+    </script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script>
+      $("#project-slider").owlCarousel({
         loop: true,
         autoplay: true,
         margin: 0,
@@ -54,7 +105,10 @@
         items: 1,
         animateIn: "fadeIn",
         animateOut: "fadeOut",
-      });</script><script>$("#testimonials-carousel").owlCarousel({
+      });
+    </script>
+    <script>
+      $("#testimonials-carousel").owlCarousel({
         loop: true,
         margin: 20,
         responsive: {
@@ -77,32 +131,57 @@
             items: 3,
           },
         },
-      });</script><script>$("#menu-toggle").click(function (e) {
+      });
+    </script>
+    <script>
+      $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
-      });</script><script src="js/jquery.easing.min.js"></script><script src="js/smooth-scroll-nonav.js"></script><script src="/js/jquery.magnific-popup.min.js"></script><script>// This will create a single gallery from all elements that have class "lightbox"
-       $(".lightbox").each(function () {
-         $(this).magnificPopup({
-           delegate: "a.image-lightbox", // the selector for gallery item
-           type: "image",
-           removalDelay: 500,
-           mainClass: "mfp-fade",
-           gallery: {
-             enabled: true,
-           },
-         });
-       });</script><script src="/js/jquery.magnific-popup.min.js"></script><script>// This will create a single gallery from all elements that have class "lightbox"
-       $(".lightbox").each(function () {
-         $(this).magnificPopup({
-           delegate: "a.image-lightbox", // the selector for gallery item
-           type: "image",
-           gallery: {
-             enabled: true,
-           },
-         });
-       });</script><script src="/js/jquery.countTo.js"></script><script>$(".timer").countTo({
-         refreshInterval: 60,
-         formatter: function (value, options) {
-           return value.toFixed(options.decimals);
-         },
-       });</script><script src="/js/contact-form-validator.min.js"></script><script src="/js/contact-form.js"></script><script src="/js/hide-nav.js"></script><script src="/js/chunk-vendors.45904dfa.js"></script><script src="/js/app.fa81b4ca.js"></script></body></html>
+      });
+    </script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/smooth-scroll-nonav.js"></script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script>
+      // This will create a single gallery from all elements that have class "lightbox"
+      $(".lightbox").each(function () {
+        $(this).magnificPopup({
+          delegate: "a.image-lightbox", // the selector for gallery item
+          type: "image",
+          removalDelay: 500,
+          mainClass: "mfp-fade",
+          gallery: {
+            enabled: true,
+          },
+        });
+      });
+    </script>
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script>
+      // This will create a single gallery from all elements that have class "lightbox"
+      $(".lightbox").each(function () {
+        $(this).magnificPopup({
+          delegate: "a.image-lightbox", // the selector for gallery item
+          type: "image",
+          gallery: {
+            enabled: true,
+          },
+        });
+      });
+    </script>
+    <script src="/js/jquery.countTo.js"></script>
+    <script>
+      $(".timer").countTo({
+        refreshInterval: 60,
+        formatter: function (value, options) {
+          return value.toFixed(options.decimals);
+        },
+      });
+    </script>
+    <script src="/js/contact-form-validator.min.js"></script>
+    <script src="/js/contact-form.js"></script>
+    <script src="/js/hide-nav.js"></script>
+    <script src="/js/chunk-vendors.45904dfa.js"></script>
+    <script src="/js/app.fa81b4ca.js"></script>
+  </body>
+</html>
