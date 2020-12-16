@@ -67,7 +67,7 @@ class Api::UsersController < ApplicationController
       if @user.save
         render "show.json.jb", status: 201
       else 
-        render json: { errors: @user.errors.full_messages}, status: 422
+        render json: { errors: @user.errors.full_messages}, status: 400
       end
     else 
       render json: { status: "Forbidden" }, status: 403
