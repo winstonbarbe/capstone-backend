@@ -221,7 +221,7 @@ images = [
 # end
 i = 0
 User.all.each do |user|
-  image = Image.new(user_id: user.id, path: images[i])
+  image = Image.new(user_id: user[:id], path: images[i])
   image.save
   i += 1
 end
