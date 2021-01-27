@@ -220,10 +220,26 @@ images = [
 #   end
 # end
 i = 0
+# User.all.each do |user|
+#   image = Image.new(user_id: user[:id], path: images[i])
+#   image.save
+#   i += 1
+# end
+users = User.all
+mutuals = [-1, 0, 1]
+user_ids = []
+users.each do |user|
+  user_ids << user.id
+end 
+
+
 User.all.each do |user|
-  image = Image.new(user_id: user[:id], path: images[i])
-  image.save
-  i += 1
+  5.times do
+    match = Match.new(sender_id: user[:id], recipient_id: user_ids.sample, mutual: mutuals.sample, super: false )
+    match.save
+    
+  end
+  
 end
 
 
