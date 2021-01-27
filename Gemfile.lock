@@ -97,6 +97,7 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    image_suckr (0.2.0)
     jb (0.7.1)
       multi_json
     jbuilder (2.10.1)
@@ -234,6 +235,7 @@ DEPENDENCIES
   ffaker
   geocoder
   http
+  image_suckr
   jb
   jbuilder (~> 2.7)
   jwt
