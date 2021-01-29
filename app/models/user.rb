@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :ranking
   has_secure_password
   geocoded_by :current_location
   after_validation :geocode
@@ -247,4 +248,8 @@ class User < ApplicationRecord
     end
     compatible_users.sort_by! { |potential | potential[:ranking] }.reverse
   end
+
+  # def ranking
+  #   params.permit  
+  # end
 end
